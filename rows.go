@@ -512,17 +512,20 @@ func checkRow(xlsx *xlsxWorksheet) {
 // index and axis.
 func completeRow(xlsx *xlsxWorksheet, row, cell int) {
 	currentRows := len(xlsx.SheetData.Row)
+
 	if currentRows > 1 {
 		lastRow := xlsx.SheetData.Row[currentRows-1].R
 		if lastRow >= row {
 			row = lastRow
 		}
 	}
+
 	for i := currentRows; i < row; i++ {
 		xlsx.SheetData.Row = append(xlsx.SheetData.Row, xlsxRow{
 			R: i + 1,
 		})
 	}
+
 	buffer := bytes.Buffer{}
 	for ii := currentRows; ii < row; ii++ {
 		start := len(xlsx.SheetData.Row[ii].C)

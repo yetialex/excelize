@@ -2364,6 +2364,12 @@ func (f *File) SetCellStyle(sheet, hcell, vcell string, styleID int) {
 	completeCol(xlsx, vyAxis+1, vxAxis+1)
 
 	for r := hyAxis; r <= vyAxis; r++ {
+		colsInCurrentRow := len(xlsx.SheetData.Row[r].C)
+
+		if colsInCurrentRow <= vxAxis {
+			completeCol(xlsx, r+1, vxAxis+1)
+		}
+
 		for k := hxAxis; k <= vxAxis; k++ {
 			xlsx.SheetData.Row[r].C[k].S = styleID
 		}

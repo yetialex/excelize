@@ -92,7 +92,7 @@ func TestRemoveRow(t *testing.T) {
 			xlsx.SetCellStr(sheet1, axis, axis)
 		}
 	}
-	xlsx.SetCellHyperLink(sheet1, "A5", "https://github.com/360EntSecGroup-Skylar/excelize", "External")
+	xlsx.SetCellHyperLink(sheet1, "A5", "https://github.com/yetialex/excelize", "External")
 
 	xlsx.RemoveRow(sheet1, -1)
 	if !assert.Len(t, r.SheetData.Row, rowCount) {
@@ -159,7 +159,7 @@ func TestInsertRow(t *testing.T) {
 			xlsx.SetCellStr(sheet1, axis, axis)
 		}
 	}
-	xlsx.SetCellHyperLink(sheet1, "A5", "https://github.com/360EntSecGroup-Skylar/excelize", "External")
+	xlsx.SetCellHyperLink(sheet1, "A5", "https://github.com/yetialex/excelize", "External")
 
 	xlsx.InsertRow(sheet1, -1)
 	if !assert.Len(t, r.SheetData.Row, rowCount) {

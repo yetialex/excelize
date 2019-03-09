@@ -322,10 +322,6 @@ func (f *File) InsertCol(sheet, column string) {
 //
 //    xlsx.RemoveCol("Sheet1", "C")
 //
-// Use this method with caution, which will affect changes in references such
-// as formulas, charts, and so on. If there is any referenced value of the
-// worksheet, it will cause a file error when you open it. The excelize only
-// partially updates these references currently.
 func (f *File) RemoveCol(sheet, column string) {
 	xlsx := f.workSheetReader(sheet)
 	for r := range xlsx.SheetData.Row {
@@ -345,18 +341,15 @@ func (f *File) RemoveCol(sheet, column string) {
 // sheet.
 func completeCol(xlsx *xlsxWorksheet, row, cell int) {
 	buffer := bytes.Buffer{}
-	for r := range xlsx.SheetData.Row {
-		if len(xlsx.SheetData.Row[r].C) < cell {
-			start := len(xlsx.SheetData.Row[r].C)
-			for iii := start; iii < cell; iii++ {
-				buffer.WriteString(ToAlphaString(iii))
-				buffer.WriteString(strconv.Itoa(r + 1))
-				xlsx.SheetData.Row[r].C = append(xlsx.SheetData.Row[r].C, xlsxC{
-					R: buffer.String(),
-				})
-				buffer.Reset()
-			}
-		}
+	r := row - 1
+	start := len(xlsx.SheetData.Row[r].C)
+	for iii := start; iii < cell; iii++ {
+		buffer.WriteString(ToAlphaString(iii))
+		buffer.WriteString(strconv.Itoa(r + 1))
+		xlsx.SheetData.Row[r].C = append(xlsx.SheetData.Row[r].C, xlsxC{
+			R: buffer.String(),
+		})
+		buffer.Reset()
 	}
 }
 
