@@ -100,11 +100,14 @@ func (f *File) workBookWriter() {
 // workSheetWriter provides a function to save xl/worksheets/sheet%d.xml after
 // serialize structure.
 func (f *File) workSheetWriter() {
+
 	for path, sheet := range f.Sheet {
 		if sheet != nil {
-			for k, v := range sheet.SheetData.Row {
-				f.Sheet[path].SheetData.Row[k].C = trimCell(v.C)
-			}
+			/*
+				for k, v := range sheet.SheetData.Row {
+					f.Sheet[path].SheetData.Row[k].C = trimCell(v.C, buf)
+				}
+			*/
 			output, _ := xml.Marshal(sheet)
 			f.saveFileList(path, replaceWorkSheetsRelationshipsNameSpaceBytes(output))
 			ok := f.checked[path]
@@ -115,7 +118,6 @@ func (f *File) workSheetWriter() {
 	}
 }
 
-// trimCell provides a function to trim blank cells which created by completeCol.
 func trimCell(column []xlsxC) []xlsxC {
 	col := make([]xlsxC, len(column))
 	i := 0
@@ -772,9 +774,16 @@ func (f *File) UnprotectSheet(sheet string) {
 	xlsx.SheetProtection = nil
 }
 
-// trimSheetName provides a function to trim invaild characters by given worksheet
+// trimSheetName provides a function to trim invalid characters by given worksheet
 // name.
+// This function is calling very often, with every manipulation of any cell.
+// Algorithm must be changed to remove this calls.
+// Now don't use symbols :\/?*[] in sheet names
 func trimSheetName(name string) string {
+	return name
+}
+
+func trimSheetNameOriginal(name string) string {
 	r := []rune{}
 	for _, v := range name {
 		switch v {

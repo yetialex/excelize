@@ -139,7 +139,7 @@ func (f *File) SetCellBool(sheet, axis string, value bool) {
 	completeRow(xlsx, rows, cell)
 	completeCol(xlsx, rows, cell)
 
-	xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
+	//xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
 	xlsx.SheetData.Row[xAxis].C[yAxis].T = "b"
 	if value {
 		xlsx.SheetData.Row[xAxis].C[yAxis].V = "1"
@@ -463,7 +463,7 @@ func (f *File) SetCellInt(sheet, axis string, value int) {
 	completeRow(xlsx, rows, cell)
 	completeCol(xlsx, rows, cell)
 
-	xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
+	//xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
 	xlsx.SheetData.Row[xAxis].C[yAxis].T = ""
 	xlsx.SheetData.Row[xAxis].C[yAxis].V = strconv.Itoa(value)
 }
@@ -512,7 +512,7 @@ func (f *File) SetCellStr(sheet, axis, value string) {
 			}
 		}
 	}
-	xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
+	//xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
 	xlsx.SheetData.Row[xAxis].C[yAxis].T = "str"
 	xlsx.SheetData.Row[xAxis].C[yAxis].V = value
 }
@@ -536,7 +536,7 @@ func (f *File) SetCellDefault(sheet, axis, value string) {
 	completeRow(xlsx, rows, cell)
 	completeCol(xlsx, rows, cell)
 
-	xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
+	//xlsx.SheetData.Row[xAxis].C[yAxis].S = f.prepareCellStyle(xlsx, cell, xlsx.SheetData.Row[xAxis].C[yAxis].S)
 	xlsx.SheetData.Row[xAxis].C[yAxis].T = ""
 	xlsx.SheetData.Row[xAxis].C[yAxis].V = value
 }
